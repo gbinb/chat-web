@@ -1,0 +1,139 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+###发送短信码
+
+POST http://localhost:5001/chat/service/v1
+#POST http://172.18.10.211:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "sendSmsCode",
+  "data": {
+    "mobile": "18600783892"
+  }
+}
+
+###
+
+###验证手机号
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "verifyMobile",
+  "data": {
+    "mobile": "17601615756",
+    "smsCode": "504696"
+  }
+}
+
+###
+
+###注册
+
+POST http://localhost:80/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "userRegister",
+  "data": {
+    "mobile": "18699999999",
+    "passWord": "123456",
+    "nickName": "长江",
+    "smsCode": "123456"
+  }
+}
+
+###
+
+###登录
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "userLogin",
+  "data": {
+    "type": 1,
+    "mobile": "18600783892",
+    "smsCode": "523522"
+  }
+}
+
+###
+
+###登录
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "userLogin",
+  "data": {
+    "type": 2,
+    "mobile": "18600567899",
+    "password": "123456"
+  }
+}
+
+###
+
+###查询个人信息
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "getProfile",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMTc2MzIwMCwiaWF0IjoxNjA5MjIyMjAwLCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.g-WNVl58D8MpDhetDQQvg9iOwhsYiL61oPUchOQniDc",
+  "data": {
+  }
+}
+
+###创建群
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "createGroup",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMTMzMTIwMCwiaWF0IjoxNjA4NzgxMjM2LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.k6F3hsk6bzR4DwiDF8ftAqjDigDxLVsoHx5zV2Fm18c",
+  "data": {
+    "members": ["U201216000001", "U201216000002", "U201224IrTbw000003"]
+  }
+}
+
+###
+
+###查询我的群信息
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "getMyGroup",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMTMzMTIwMCwiaWF0IjoxNjA4NzgxMjM2LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.k6F3hsk6bzR4DwiDF8ftAqjDigDxLVsoHx5zV2Fm18c",
+  "data": {
+    "groupId": "G201224ZIOI3000004"
+  }
+}
+
+###
+
+###查询我的群信息
+
+POST http://119.45.139.102:5001/test/getFiles
+Content-Type: application/x-www-form-urlencoded
+
+page=1&rows=20&fileId=63b74
+
+###

@@ -1,0 +1,52 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+### 获取图形验证码
+
+POST http://localhost:8080/chat/admin/v1
+Content-Type: application/json
+
+{
+  "action": "obtainCaptcha",
+  "data": {
+  }
+}
+
+###
+
+### 管理员登录
+
+POST http://localhost:8080/chat/admin/v1
+Content-Type: application/json
+
+{
+  "action": "adminLogin",
+  "data": {
+    "username": "root",
+    "password": "123456",
+    "verifyCode": "6688"
+  }
+}
+
+###
+
+### 查询用户信息
+
+POST http://localhost:8080/chat/admin/v1
+Content-Type: application/json
+
+{
+  "action": "queryUsers",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJhZG1pbklkIjoiQTIxMDExMlNTTkk0MDAwMDgzIiwiZXhwIjoxNjEzMjMyMDAwLCJpYXQiOjE2MTA2OTMwMTksImp0aSI6IkEyMTAxMTJTU05JNDAwMDA4MyIsInVzZXJuYW1lIjoicm9vdCJ9.yU0KU9FJwptf3Aj2lj4BEm1X8GHQqHbsmnVp8CSAg-c",
+  "data": {
+    "username": "root",
+    "password": "123456",
+    "verifyCode": "6688"
+  }
+}
+
+###

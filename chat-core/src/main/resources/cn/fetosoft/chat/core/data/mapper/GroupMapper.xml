@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.core.data.mapper.GroupMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.core.data.entity.Group">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="members" jdbcType="INTEGER" property="members" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, group_id, owner_id, name, topic, avatar, members, create_time, modify_time
+  </sql>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="groupId != null and groupId!=''">
+        and group_id = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="ownerId != null and ownerId!=''">
+        and owner_id = #{ownerId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_group
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.core.data.form.GroupForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_group
+    <include refid="queryConditions" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.core.data.form.GroupForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from chat_group
+    <include refid="queryConditions" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByGroupId" parameterType="java.lang.String">
+    delete from chat_group
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.core.data.entity.Group">
+    insert into chat_group (id, group_id, owner_id,
+      name, topic, avatar, 
+      members, create_time)
+    values (#{id,jdbcType=BIGINT}, #{groupId,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{members,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.core.data.entity.Group">
+    update chat_group
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="members != null">
+        members = #{members,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByGroupId" parameterType="cn.fetosoft.chat.core.data.entity.Group">
+    update chat_group
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="members != null">
+        members = #{members,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="GroupOwnerMap" type="cn.fetosoft.chat.core.data.entity.GroupOwner" extends="BaseResultMap">
+    <result column="owner_nick_name" jdbcType="VARCHAR" property="ownerNickName" />
+    <result column="owner_mobile" jdbcType="VARCHAR" property="ownerMobile" />
+    <result column="owner_avatar" jdbcType="VARCHAR" property="ownerAvatar" />
+  </resultMap>
+
+  <sql id="queryConditionsJoin">
+    <where>
+      <if test="groupId != null and groupId!=''">
+        and g.group_id = #{groupId,jdbcType=VARCHAR}
+      </if>
+      <if test="ownerId != null and ownerId!=''">
+        and g.owner_id = #{ownerId,jdbcType=VARCHAR}
+      </if>
+      <if test="mobile != null and mobile!=''">
+        and u.mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="members != null">
+        and g.members >= #{members,jdbcType=INTEGER}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectListWithOwner" parameterType="cn.fetosoft.chat.core.data.form.GroupForm" resultMap="GroupOwnerMap">
+    select g.*,u.nick_name as owner_nick_name,u.mobile as owner_mobile,u.avatar as owner_avatar
+    from chat_group g left join chat_user u on g.owner_id=u.user_id
+    <include refid="queryConditionsJoin" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountWithOwner" parameterType="cn.fetosoft.chat.core.data.form.GroupForm" resultType="java.lang.Integer">
+    select count(g.id) as c
+    from chat_group g left join chat_user u on g.owner_id=u.user_id
+    <include refid="queryConditionsJoin" />
+  </select>
+</mapper>

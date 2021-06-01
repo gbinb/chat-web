@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.core.data.mapper.MsgFileMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.core.data.entity.MsgFile">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="file_id" jdbcType="VARCHAR" property="fileId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_format" jdbcType="VARCHAR" property="fileFormat" />
+    <result column="bucket" jdbcType="VARCHAR" property="bucket" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="relative_path" jdbcType="VARCHAR" property="relativePath" />
+    <result column="md5" jdbcType="VARCHAR" property="md5" />
+    <result column="alive" jdbcType="INTEGER" property="alive" />
+    <result column="destroy_time" jdbcType="TIMESTAMP" property="destroyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_read" jdbcType="CHAR" property="isRead" />
+    <result column="read_time" jdbcType="TIMESTAMP" property="readTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, file_id, file_name, file_format, bucket, file_url, relative_path,
+    md5, alive, destroy_time, create_time, is_read, read_time
+  </sql>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="userId != null and userId!=''">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="fileId != null and fileId!=''">
+        and file_id = #{fileId,jdbcType=VARCHAR}
+      </if>
+      <if test="md5 != null and md5!=''">
+        and md5 = #{md5,jdbcType=VARCHAR}
+      </if>
+      <if test="destroyTime != null and destroyTime!=''">
+        <![CDATA[ and destroy_time >= #{destroyTime,jdbcType=TIMESTAMP} ]]>
+      </if>
+      <if test="isRead != null and isRead!=''">
+        and is_read = #{isRead,jdbcType=CHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_msg_file
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.core.data.form.MsgFileForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_msg_file
+    <include refid="queryConditions" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.core.data.form.MsgFileForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from chat_msg_file
+    <include refid="queryConditions" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_msg_file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByFileId" parameterType="java.lang.String">
+    delete from chat_msg_file
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.core.data.entity.MsgFile">
+    insert into chat_msg_file (user_id,
+      file_id, file_name, file_format, 
+      bucket, file_url, relative_path, 
+      md5, alive, destroy_time, 
+      create_time, is_read, read_time
+      )
+    values (#{userId,jdbcType=VARCHAR},
+      #{fileId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileFormat,jdbcType=VARCHAR}, 
+      #{bucket,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{relativePath,jdbcType=VARCHAR}, 
+      #{md5,jdbcType=VARCHAR}, #{alive,jdbcType=INTEGER}, #{destroyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isRead,jdbcType=CHAR}, #{readTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.core.data.entity.MsgFile">
+    update chat_msg_file
+    <set>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFormat != null">
+        file_format = #{fileFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="bucket != null">
+        bucket = #{bucket,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null">
+        relative_path = #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null">
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="alive != null">
+        alive = #{alive,jdbcType=INTEGER},
+      </if>
+      <if test="destroyTime != null">
+        destroy_time = #{destroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=CHAR},
+      </if>
+      <if test="readTime != null">
+        read_time = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateReadByFileId" parameterType="cn.fetosoft.chat.core.data.entity.MsgFile">
+    update chat_msg_file
+    set is_read = #{isRead,jdbcType=CHAR},
+      read_time = #{readTime,jdbcType=TIMESTAMP}
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </update>
+</mapper>

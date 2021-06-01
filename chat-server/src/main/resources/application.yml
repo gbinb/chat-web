@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: chat
+  profiles:
+    active: "@profileActive@"
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      enabled: true
+      max-request-size: 20MB
+
+server:
+  port: 5001
+
+mybatis:
+  type-aliases-package: cn.fetosoft.chat.core.data.entity
+  mapper-locations: cn/fetosoft/chat/core/data/mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+
+system:
+  chat-port: 5002
+  chat-expired: 24 #消息过期时间，单位小时，即24小时后过期
+  socket-type: websocket
+  hmac-key: SC5gvN3k!8BpgD7/!ztLW5SNabQxZWi6
+  aes-key: S!AivoI5Q25OVQ1D
+  jwt:
+    secret-key: AE8J1n/fFEt7bnp!KrwZ8K30bMA=KcIb
+    expire-days: 30
+
+  media:
+    app-id: 5dd6dacbf78f432f9b85f8fbb55cd4f2
+    app-secret: a6cffaf7c5104016abbcd0e8eb86d9eb
+    expired-time: 3600

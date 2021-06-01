@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="base" >
+    <sql id="orderAndPage">
+        <trim prefix="order by " suffix="" suffixOverrides=",">
+            <if test="ascField!=null and ascField!=''">
+                ${ascField} asc,
+            </if>
+            <if test="descField!=null and descField!=''">
+                ${descField} desc,
+            </if>
+        </trim>
+        <if test="rows!=null and rows>0">
+            limit #{startRecord,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+        </if>
+    </sql>
+
+    <sql id="order">
+        <trim prefix="order by " suffix="" suffixOverrides=",">
+            <if test="ascField!=null and ascField!=''">
+                ${ascField} asc,
+            </if>
+            <if test="descField!=null and descField!=''">
+                ${descField} desc,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="page">
+        <if test="rows!=null and rows>0">
+            limit #{startRecord,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+        </if>
+    </sql>
+    <!-- <![CDATA[  ]]> -->
+</mapper>

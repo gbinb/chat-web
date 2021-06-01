@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		<title>即时聊天</title>
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="/static/css/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/static/css/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="/static/css/tabler.min.css">
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="/static/css/chat.css">
+
+        <style type="text/css">
+            .error{
+                color: #ff0000;
+            }
+        </style>
+    </head>
+    <body>
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+			<!-- Header -->
+			<div class="header">
+
+				<!-- Logo -->
+				<div class="header-left mt-3">
+					<span style="font-size: 20px; font-weight: 600;">聊天应用</span>
+				</div>
+				<!-- /Logo -->
+				
+				<!-- Search -->
+				<div class="top-nav-search">
+                    <form onsubmit="return false">
+                        <input id="input_search" type="text" class="form-control" placeholder="搜索并加好友">
+                        <button class="btn" type="button" onclick="chat.searchUser()"><i class="fas fa-search"></i></button>
+                    </form>
+				</div>
+				<!-- /Search -->
+
+                <div class="top-nav-search flex-md-wrap" style="padding-top: 10px">
+                    支持单人，群组聊天；消息阅后即焚；<br/>
+                    测试号：18566666666、15899999999，密码：123456
+                </div>
+
+				<!-- Header Menu -->
+				<ul class="nav user-menu">
+                    <!--登录注册-->
+				    <li id="div_user_login" class="nav-item mt-3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-login">登录</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-register">注册</button>
+                    </li>
+
+                    <!-- Notifications -->
+                    <li id="div_system_notify" class="nav-item dropdown display-none">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i data-feather="bell"></i>
+                            <span id="notify_total" class="badge badge-pill" style="display: none">0</span>
+                        </a>
+                        <div class="dropdown-menu notifications">
+                            <div class="topnav-dropdown-header">
+                                <span class="notification-title">通知</span>
+                                <a href="javascript:user.clearAllNotify()" class="clear-noti"> 清空</a>
+                            </div>
+                            <div class="noti-content">
+                                <ul id="notify_message" class="notification-list">
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /Notifications -->
+
+					<!-- User Menu -->
+					<li id="div_user_profile" class="nav-item dropdown has-arrow main-drop display-none">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							<span class="user-img">
+								<img id="img_user_avatar" src="" alt="Avatar">
+								<span class="status online"></span>
+							</span>
+							<span id="span_nick_name"></span>
+						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="javascript:void(0)" onclick="chat.previewProfile()"><i data-feather="user" class="mr-1"></i> 个人资料</a>
+							<a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#modal-settings"><i data-feather="settings" class="mr-1"></i> 应用设置</a>
+							<a class="dropdown-item" href="javascript:chat.logout()"><i data-feather="log-out" class="mr-1"></i> 注销</a>
+						</div>
+					</li>
+					<!-- /User Menu -->
+					
+				</ul>
+				<!-- /Header Menu -->
+				
+			</div>
+			<!-- /Header -->
+			
+			<!-- Page Wrapper -->
+            <div class="page-wrapper align-content-center">
+                <div class="content container-fluid align-content-center">
+				
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="chat-window">
+								<div class="chat-cont-left">
+									<div class="chat-header">
+										<h3>我的好友</h3>
+										<a href="javascript:void(0)" onclick="chat.showGroupModal()" class="chat-compose">
+											<i class="material-icons">control_point</i>
+										</a>
+									</div>
+									<div class="chat-users-list">
+										<div id="div_friends" class="chat-scroll">
+										</div>
+									</div>
+								</div>
+								<div class="chat-cont-right">
+									<div class="chat-header">
+										<div class="media">
+											<div class="media-img-wrap">
+												<div class="avatar">
+													<img id="chat_user_avatar" class="avatar-img rounded-circle" alt="">
+												</div>
+											</div>
+											<div class="media-body">
+												<div id="chat_user_nickName" class="user-name"></div>
+												<div id="chat_user_status" class="user-status"></div>
+											</div>
+										</div>
+										<div class="chat-options">
+											<a href="javascript:void(0)" style="margin-right: 10px;">
+												<i class="material-icons">local_phone</i>
+											</a>
+											<a href="javascript:void(0)" style="margin-right: 30px;">
+												<i class="material-icons">videocam</i>
+											</a>
+                                            <a class="dropdown-toggle nav-link" style="margin-right: 50px;" data-toggle="dropdown" href="#">
+                                                <span>更多操作</span>
+                                            </a>
+                                            <div id="contextMenu_container" class="dropdown-menu dropdown-menu-right">
+                                            </div>
+										</div>
+
+									</div>
+									<div id="div_message_body" class="chat-body" style="min-height: calc(100vh - 240px)">
+										<div id="div_message_container" class="chat-scroll">
+										</div>
+									</div>
+									<div class="chat-footer">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="btn-file btn">
+													<i class="fas fa-paperclip"></i>
+													<input id="chat_message_file" type="file" onchange="chat.sendImageMessage()">
+												</div>
+											</div>
+											<input type="text" id="text_message" class="input-msg-send form-control">
+											<div class="input-group-append">
+												<button type="button" onclick="chat.sendMessage()" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->
+					
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+        </div>
+		<!-- /Main Wrapper -->
+
+        <!--注册-->
+        <div class="modal modal-blur fade" id="modal-register" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">新用户注册</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="div_verifyMobile" class="row">
+                            <form id="verifyMobileForm" method="post">
+                                <div class="mb-3 row">
+                                    <label class="form-label col-3 col-form-label">手机号</label>
+                                    <div class="col">
+                                        <input type="text" id="mobile" name="mobile" maxlength="11" class="form-control" placeholder="请输入手机号">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="form-label col-3 col-form-label">短信码</label>
+                                    <div class="col-6">
+                                        <input type="text" id="smsCode" name="smsCode" maxlength="6" class="form-control" value="">
+                                    </div>
+                                    <div class="col-3">
+                                        <input id="btn_getSmsCode" type="button" onclick="chat.sendSmsCode()" class="btn btn-secondary" value="获取验证码">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="div_register" class="row" style="display: none;">
+                            <form id="registForm" method="post">
+                                <input type="hidden" id="authCode" name="authCode">
+                                <div class="mb-3 row">
+                                    <label class="form-label col-3 mt-2">昵称</label>
+                                    <div class="col">
+                                        <input type="text" id="nickName" name="nickName" maxlength="20" class="form-control" placeholder="请输入昵称">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="form-label col-3 mt-2">密码</label>
+                                    <div class="col">
+                                        <input type="password" id="password" name="password" maxlength="20" class="form-control" placeholder="长度6-20位字符">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="form-label col-3 mt-2">确认密码</label>
+                                    <div class="col">
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" maxlength="20" placeholder="请输入确认密码">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn btn-link link-secondary" data-dismiss="modal">
+                            Cancel
+                        </a>
+                        <a id="btn_nextStep" href="javascript:$('#verifyMobileForm').submit()" class="btn btn-primary ml-auto">
+                            下一步
+                        </a>
+                        <a id="btn_register" href="javascript:$('#registForm').submit()" class="btn btn-primary ml-auto" style="display: none">
+                            注册
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--登录-->
+        <div class="modal modal-blur fade" id="modal-login" tabindex="1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">用户登录</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginForm" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">手机号</label>
+                                <input type="text" id="loginMobile" name="loginMobile" maxlength="11" class="form-control" placeholder="请输入手机号">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密码</label>
+                                <input type="password" id="loginPassword" name="loginPassword" maxlength="20" class="form-control" placeholder="长度6-20位字符">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn btn-link link-secondary" data-dismiss="modal">
+                            cancel
+                        </a>
+                        <a href="javascript:$('#loginForm').submit()" class="btn btn-primary ml-auto">
+                            登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--文件上传-->
+        <div class="modal modal-blur fade" id="modal-upload" tabindex="2" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">文件上传</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="uploadForm" method="post" action="/chat/file/upload" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">选择文件</label>
+                                <div class="form-file">
+                                    <input type="file" id="file" name="file">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Token</label>
+                                <input type="text" id="token" name="token" class="form-control" placeholder="请输入token">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn btn-link link-secondary" data-dismiss="modal">
+                            Cancel
+                        </a>
+                        <a href="javascript:$('#uploadForm').submit()" class="btn btn-primary ml-auto">
+                            上传
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--下载文件-->
+        <div class="modal modal-blur fade" id="modal-download" tabindex="3" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">文件下载</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="downloadForm" method="post" action="/chat/file/download">
+                            <div class="mb-3">
+                                <label class="form-label">文件ID</label>
+                                <input type="text" id="fileId" name="fileId" class="form-control" placeholder="请输入fileId">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Token</label>
+                                <input type="text" name="token" class="form-control" placeholder="请输入token">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn btn-link link-secondary" data-dismiss="modal">
+                            Cancel
+                        </a>
+                        <a href="javascript:$('#downloadForm').submit()" class="btn btn-primary ml-auto">
+                            下载
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--搜索加好友-->
+        <div class="modal modal-blur fade" id="modal-addFriend" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">搜索好友</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                            <label class="form-selectgroup-item flex-fill">
+                                <div class="form-selectgroup-label d-flex align-items-center p-3">
+                                    <div class="form-selectgroup-label-content d-flex align-items-center">
+                                        <input type="hidden" id="search_user_id">
+                                        <img id="search_user_avatar" src="" align="avatar" class="avatar mr-3" />
+                                        <div class="lh-sm">
+                                            <div id="search_user_name" class="strong"></div>
+                                            <div id="search_user_country" class="text-muted"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="form-label">验证信息</label>
+                            <textarea id="search_leaveMsg" class="form-control" maxlength="100"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="chat.applyAddFriend()" class="btn btn-primary" data-dismiss="modal">发送验证</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--好友验证-->
+        <div class="modal modal-blur fade" id="modal-verifyFriend" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">搜索好友</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                            <label class="form-selectgroup-item flex-fill">
+                                <div class="form-selectgroup-label d-flex align-items-center p-3">
+                                    <div class="form-selectgroup-label-content d-flex align-items-center">
+                                        <input type="hidden" id="verify_apply_id">
+                                        <img id="verify_friend_avatar" src="" align="avatar" class="avatar mr-3" />
+                                        <div class="lh-sm">
+                                            <div id="verify_friend_name" class="strong font-weight-bold"></div>
+                                            <div id="verify_friend_country" class="text-muted"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="form-label">验证信息</label>
+                            <p class="noti-details"><span id="verify_friend_leaveMsg" class="noti-title"></span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn_verify_refuse" class="btn btn-secondary mr-auto" data-dismiss="modal">拒绝</button>
+                        <button type="button" id="btn_verify_agree" class="btn btn-primary" data-dismiss="modal">同意</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--创建群-->
+        <div class="modal modal-blur fade" id="modal-createGroup" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">选择好友</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_createGroup" method="post">
+                            <div id="create_group_friends" class="form-selectgroup form-selectgroup-boxes d-flex flex-column" style="max-height: 30rem">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="chat.createGroupChat()" class="btn btn-primary" data-dismiss="modal">创建群聊</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--个人资料-->
+        <div class="modal modal-blur fade" id="modal-profile" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">个人资料</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_profile" method="post">
+                            <input type="hidden" id="hid_avatar" name="avatar">
+                        <div class="row mb-3 text-center">
+                            <a href="javascript:void(0)">
+                                <img id="profile_avatar" class="avatar avatar-xl" src="/static/img/xiaomi.png" />
+                            </a>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-label">更换头像</div>
+                            <div class="form-file">
+                                <input type="file" name="file" class="form-file-input" onchange="chat.uploadAvatar()" id="profileFile">
+                                <label class="form-file-label" for="profileFile">
+                                    <span class="form-file-text">Choose file...</span>
+                                    <span class="form-file-button">浏览</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">昵称</label>
+                                <input type="text" id="profile_nickName" name="nickName" maxlength="30" class="form-control" />
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">国家地区</label>
+                                <input type="text" id="profile_country" name="country" maxlength="20" class="form-control" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">个性签名</label>
+                            <input type="text" id="profile_signature" name="signature" maxlength="50" class="form-control" />
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">取消</button>
+                        <button type="button" onclick="chat.modifyProfile()" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--好友资料-->
+        <div class="modal modal-blur fade" id="modal-friendProfile" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">好友资料</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_friend_profile" method="post">
+                            <input type="hidden" id="hid_friend_userId" name="friendId">
+                            <div class="row mb-3 text-center">
+                                <a href="javascript:void(0)">
+                                    <img id="friend_profile_avatar" class="avatar avatar-xl" />
+                                </a>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">备注名</label>
+                                    <input type="text" id="friend_profile_alias" name="alias" maxlength="30" class="form-control" />
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">标签</label>
+                                    <input type="text" id="friend_profile_tag" name="tag" maxlength="30" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">昵称</label>
+                                    <input type="text" id="friend_profile_nickName" maxlength="30" class="form-control" readonly/>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">国家地区</label>
+                                    <input type="text" id="friend_profile_country" maxlength="20" class="form-control" readonly/>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">个性签名</label>
+                                <input type="text" id="friend_profile_signature" maxlength="50" class="form-control" readonly/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">取消</button>
+                        <button type="button" onclick="chat.modifyFriendProfile()" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--系统通知-->
+        <div class="modal modal-blur fade" id="modal-notice" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">系统通知</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="notice_message_container" class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="notice_message_button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--群资料-->
+        <div class="modal modal-blur fade" id="modal-groupInfo" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">群组资料</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_group" method="post">
+                            <input type="hidden" id="group_groupId" name="groupId">
+                            <input type="hidden" id="group_leaderUid">
+                            <div id="group_member_container" class="row mb-3 justify-content-center">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">群主</label>
+                                    <input type="text" id="group_leaderName" maxlength="30" class="form-control" readonly />
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">群成员</label>
+                                    <input type="text" id="group_total" maxlength="30" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">群备注名</label>
+                                <input type="text" id="group_name" name="name" maxlength="30" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">群公告</label>
+                                <input type="text" id="group_topic" name="topic" maxlength="50" class="form-control"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">取消</button>
+                        <button type="button" onclick="chat.modifyGroupProfile()" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--系统设置-->
+        <div class="modal modal-blur fade" id="modal-settings" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">系统设置</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"/>
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_settings" method="post">
+                            <input type="hidden" id="settings_id" name="id">
+                            <div class="form-group mb-3 row">
+                                <label class="form-label col-5 col-form-label">设置阅后自焚时长：单位秒</label>
+                                <div class="col">
+                                    <input type="text" id="settings_at" name="aliveTime" maxlength="5" value="0" class="form-control" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">取消</button>
+                        <button type="button" onclick="chat.saveSettings()" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!-- jQuery -->
+    <script src="/static/js/jquery-3.5.1.min.js"></script>
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- Feather Icon JS -->
+    <script src="/static/js/feather.min.js"></script>
+    <script src="/static/js/layer.js"></script>
+    <!-- Slimscroll JS -->
+    <script src="/static/js/jquery.slimscroll.min.js"></script>
+    <!-- Custom JS -->
+    <script  src="/static/js/kanakku.js"></script>
+    <!--contextmenu-->
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/chatMessage.js"></script>
+    <script src="/static/js/chat.js"></script>
+<script type="text/javascript">
+    let chat = new Chat();
+    $(document).ready(function () {
+        chat.verifyMobile();
+        chat.register();
+        chat.login();
+        chat.checkLogin();
+    });
+
+    document.onkeyup = function (event) {
+        if(event.key && event.key.toLowerCase()==='enter'){
+            if($("#text_message").is(":focus")){
+                chat.sendMessage();
+            }else if($('#input_search').is(":focus")){
+                chat.searchUser();
+            }
+        }
+    };
+</script>
+</html>

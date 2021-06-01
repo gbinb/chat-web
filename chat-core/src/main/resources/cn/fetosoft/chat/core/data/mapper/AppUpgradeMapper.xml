@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.core.data.mapper.AppUpgradeMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.core.data.entity.AppUpgrade">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="version_type" jdbcType="VARCHAR" property="versionType" />
+    <result column="apk_url" jdbcType="VARCHAR" property="apkUrl" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="force_upgrade" jdbcType="CHAR" property="forceUpgrade" />
+    <result column="is_skip" jdbcType="CHAR" property="isSkip" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, version, version_type, apk_url, note, force_upgrade, is_skip, create_time
+  </sql>
+
+  <sql id="queryConditionds">
+    <where>
+      <if test="id != null and id > 0">
+        and id > #{id,jdbcType=INTEGER}
+      </if>
+      <if test="version != null and version!=''">
+        and version = #{version,jdbcType=VARCHAR}
+      </if>
+      <if test="versionType != null and versionType!=''">
+        and version_type = #{versionType,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_app_upgrade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByVersionAndType" parameterType="cn.fetosoft.chat.core.data.form.AppUpgradeForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_app_upgrade
+    where version = #{version,jdbcType=VARCHAR} and version_type = #{versionType,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.core.data.form.AppUpgradeForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_app_upgrade
+    <include refid="queryConditionds" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.core.data.form.AppUpgradeForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from chat_app_upgrade
+    <include refid="queryConditionds" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chat_app_upgrade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.core.data.entity.AppUpgrade">
+    insert into chat_app_upgrade (id, version, version_type, 
+      apk_url, note, force_upgrade, 
+      is_skip, create_time)
+    values (#{id,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, #{versionType,jdbcType=VARCHAR}, 
+      #{apkUrl,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{forceUpgrade,jdbcType=CHAR}, 
+      #{isSkip,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.core.data.entity.AppUpgrade">
+    update chat_app_upgrade
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="versionType != null">
+        version_type = #{versionType,jdbcType=VARCHAR},
+      </if>
+      <if test="apkUrl != null">
+        apk_url = #{apkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="forceUpgrade != null">
+        force_upgrade = #{forceUpgrade,jdbcType=CHAR},
+      </if>
+      <if test="isSkip != null">
+        is_skip = #{isSkip,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

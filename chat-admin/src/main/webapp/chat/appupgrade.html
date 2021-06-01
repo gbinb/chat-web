@@ -1,0 +1,121 @@
+<div class="card">
+    <div class="card-body border-bottom py-3">
+        <div class="row">
+            <div class="d-flex col-8">
+                <form id="qform_appUpgrade">
+                    <div class="text-muted">
+                        版本号：
+                        <div class="ml-2 d-inline-block">
+                            <input id="qform_appUpgrade_version" type="text" name="version" class="form-control form-control-sm">
+                        </div>
+                        版本类型：
+                        <div class="ml-2 d-inline-block">
+                            <input id="qform_appUpgrade_versionType" type="text" name="versionType" class="form-control form-control-sm">
+                        </div>
+                        <a href="javascript:appUpgrade.findList(1);" class="btn btn-primary">查询</a>
+                        <a href="javascript:appUpgrade.clearForm('qform_appUpgrade');" class="btn btn-primary">清空</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 text-right">
+                <a href="javascript:appUpgrade.create();" class="btn btn-outline-primary">
+                    新增
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="tb_appUpgrade" class="table table-vcenter table-mobile-md card-table">
+            <thead>
+            <tr>
+                <th>版本号</th>
+                <th>版本类型</th>
+                <th>下载URL</th>
+                <th>升级说明</th>
+                <th>强制更新</th>
+                <th>跳过更新</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div id="footer_page_appUpgrade" class="card-footer d-flex align-items-center">
+
+    </div>
+</div>
+<div class="modal modal-blur fade" id="modal-appUpgrade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="dlg_appUpgrade_title" class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z"/>
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_save_appUpgrade">
+                    <input type="hidden" name="id">
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3" style="font-weight:normal">版本号</label>
+                        <div class="col">
+                            <input type="text" name="version" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3" style="font-weight:normal">版本类型</label>
+                        <div class="col">
+                            <select name="versionType" class="form-select">
+                                <option value="beta">beta</option>
+                                <option value="release">release</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3" style="font-weight:normal">下载URL</label>
+                        <div class="col">
+                            <input type="text" name="apkUrl" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="form-label col-3" style="font-weight:normal">强制升级</label>
+                        <div class="col">
+                            <label class="form-check form-switch">
+                                <input class="form-check-input" name="forceUpgrade" type="checkbox" checked>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="form-label col-3" style="font-weight:normal">跳过版本</label>
+                        <div class="col">
+                            <label class="form-check form-switch">
+                                <input class="form-check-input" name="isSkip" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                        <label class="form-label col-3" style="font-weight:normal">版本说明</label>
+                        <div class="col">
+                            <textarea class="form-control" name="note" rows="5"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="appUpgrade.save()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        appUpgrade.findList(1)
+    });
+</script>

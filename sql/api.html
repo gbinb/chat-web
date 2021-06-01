@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+      <html>
+      <head>
+      <title>密信聊天</title>
+      <meta charset="utf-8" />
+      <style>@charset "UTF-8";
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* 外层轨道 */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset006pxrgba(255, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+  font-size: 13px;
+  line-height: 25px;
+  color: #393838;
+  position: relative;
+}
+
+table {
+  margin: 10px 0 15px 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 3px 10px;
+}
+
+th {
+  padding: 5px 10px;
+}
+
+a, a:link, a:visited {
+  color: #34495e;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #59d69d;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+p {
+  padding-left: 10px;
+  margin-bottom: 9px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #404040;
+  line-height: 36px;
+}
+
+h1 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+  line-height: 50px;
+}
+
+h2 {
+  font-size: 28px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h3 {
+  clear: both;
+  font-weight: 400;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-left: 3px solid #59d69d;
+  padding-left: 8px;
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 13px;
+}
+
+hr {
+  margin: 0 0 19px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+blockquote {
+  padding: 13px 13px 21px 15px;
+  margin-bottom: 18px;
+  font-family: georgia, serif;
+  font-style: italic;
+}
+
+blockquote:before {
+  font-size: 40px;
+  margin-left: -10px;
+  font-family: georgia, serif;
+  color: #eee;
+}
+
+blockquote p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 18px;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+code,
+pre {
+  font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+
+code {
+  background-color: #fee9cc;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 1px 3px;
+  font-size: 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+pre {
+  display: block;
+  padding: 14px;
+  margin: 0 0 18px;
+  line-height: 16px;
+  font-size: 11px;
+  border: 1px solid #d9d9d9;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #f6f6f6;
+}
+
+pre code {
+  background-color: #f6f6f6;
+  color: #737373;
+  font-size: 11px;
+  padding: 0;
+}
+
+sup {
+  font-size: 0.83em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+* {
+  -webkit-print-color-adjust: exact;
+}
+
+@media print {
+  body,
+  code,
+  pre code,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: black;
+  }
+
+  table,
+  pre {
+    page-break-inside: avoid;
+  }
+}
+html,
+body {
+  height: 100%;
+}
+
+.table-of-contents {
+  position: fixed;
+  top: 61px;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 260px;
+}
+
+.table-of-contents > ul > li > a {
+  font-size: 20px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.table-of-contents ul {
+  overflow: auto;
+  margin: 0px;
+  height: 100%;
+  padding: 0px 0px;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+
+.table-of-contents ul li {
+  padding-left: 20px;
+}
+
+.table-of-contents a {
+  padding: 2px 0px;
+  display: block;
+  text-decoration: none;
+}
+
+.content-right {
+  max-width: 700px;
+  margin-left: 290px;
+  padding-left: 70px;
+  flex-grow: 1;
+}
+.content-right h2:target {
+  padding-top: 80px;
+}
+
+body > p {
+  margin-left: 30px;
+}
+
+body > table {
+  margin-left: 30px;
+}
+
+body > pre {
+  margin-left: 30px;
+}
+
+.curProject {
+  position: fixed;
+  top: 20px;
+  font-size: 25px;
+  color: black;
+  margin-left: -240px;
+  width: 240px;
+  padding: 5px;
+  line-height: 25px;
+  box-sizing: border-box;
+}
+
+.g-doc {
+  margin-top: 56px;
+  padding-top: 24px;
+  display: flex;
+}
+
+.curproject-name {
+  font-size: 42px;
+}
+
+.m-header {
+  background: #32363a;
+  height: 56px;
+  line-height: 56px;
+  padding-left: 60px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.m-header .title {
+  font-size: 22px;
+  color: #fff;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  margin-left: 16px;
+  padding: 0;
+  line-height: 56px;
+  border: none;
+}
+.m-header .nav {
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  right: 32px;
+  top: 0;
+}
+.m-header .nav a {
+  color: #fff;
+  margin-left: 16px;
+  padding: 8px;
+  transition: color .2s;
+}
+.m-header .nav a:hover {
+  color: #59d69d;
+}
+
+.m-footer {
+  border-top: 1px solid #ddd;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/*# sourceMappingURL=defaultTheme.css.map */
+</style>
+      </head>
+      <body>
+        <div class="m-header">
+          <a href="#" style="display: inherit;"><svg class="svg" width="32px" height="32px" viewBox="0 0 64 64" version="1.1"><title>Icon</title><desc>Created with Sketch.</desc><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#FFFFFF" offset="0%"></stop><stop stop-color="#F2F2F2" offset="100%"></stop></linearGradient><circle id="path-2" cx="31.9988602" cy="31.9988602" r="2.92886048"></circle><filter x="-85.4%" y="-68.3%" width="270.7%" height="270.7%" filterUnits="objectBoundingBox" id="filter-3"><feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.159703351 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix></filter></defs><g id="首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="大屏幕"><g id="Icon"><circle id="Oval-1" fill="url(#linearGradient-1)" cx="32" cy="32" r="32"></circle><path d="M36.7078009,31.8054514 L36.7078009,51.7110548 C36.7078009,54.2844537 34.6258634,56.3695395 32.0579205,56.3695395 C29.4899777,56.3695395 27.4099998,54.0704461 27.4099998,51.7941246 L27.4099998,31.8061972 C27.4099998,29.528395 29.4909575,27.218453 32.0589004,27.230043 C34.6268432,27.241633 36.7078009,29.528395 36.7078009,31.8054514 Z" id="blue" fill="#2359F1" fill-rule="nonzero"></path><path d="M45.2586091,17.1026914 C45.2586091,17.1026914 45.5657231,34.0524383 45.2345291,37.01141 C44.9033351,39.9703817 43.1767091,41.6667796 40.6088126,41.6667796 C38.040916,41.6667796 35.9609757,39.3676862 35.9609757,37.0913646 L35.9609757,17.1034372 C35.9609757,14.825635 38.0418959,12.515693 40.6097924,12.527283 C43.177689,12.538873 45.2586091,14.825635 45.2586091,17.1026914 Z" id="green" fill="#57CF27" fill-rule="nonzero" transform="translate(40.674608, 27.097010) rotate(60.000000) translate(-40.674608, -27.097010) "></path><path d="M28.0410158,17.0465598 L28.0410158,36.9521632 C28.0410158,39.525562 25.9591158,41.6106479 23.3912193,41.6106479 C20.8233227,41.6106479 18.7433824,39.3115545 18.7433824,37.035233 L18.7433824,17.0473055 C18.7433824,14.7695034 20.8243026,12.4595614 23.3921991,12.4711513 C25.9600956,12.4827413 28.0410158,14.7695034 28.0410158,17.0465598 Z" id="red" fill="#FF561B" fill-rule="nonzero" transform="translate(23.392199, 27.040878) rotate(-60.000000) translate(-23.392199, -27.040878) "></path><g id="inner-round"><use fill="black" fill-opacity="1" filter="url(#filter-3)" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-2"></use><use fill="#F7F7F7" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#path-2"></use></g></g></g></g></svg></a>
+          <a href="#"><h1 class="title">YAPI 接口文档</h1></a>
+          <div class="nav">
+            <a href="https://hellosean1025.github.io/yapi/">YApi</a>
+          </div>
+        </div>
+        <div class="g-doc">
+          <div class="table-of-contents"><ul><li><a href="#u63a5u53e3u89c4u8303">接口规范</a><ul><li><a href="#modeu7801u5173u7cfbu8bf4u660e0a3ca20id3dmodeu7801u5173u7cfbu8bf4u660e3e203ca3e">MODE码关系说明
+<a id=MODE码关系说明> </a></a></li><li><a href="#u516cu5171u54cdu5e94u78010a3ca20id3du516cu5171u54cdu5e94u78013e203ca3e">公共响应码
+<a id=公共响应码> </a></a></li><li><a href="#u624bu673au77edu4fe1u6ce8u518cu6d41u7a0b0a3ca20id3du624bu673au77edu4fe1u6ce8u518cu6d41u7a0b3e203ca3e">手机短信注册流程
+<a id=手机短信注册流程> </a></a></li><li><a href="#u63a5u53e3u516cu5171u62a5u6587u8bf4u660e0a3ca20id3du63a5u53e3u516cu5171u62a5u6587u8bf4u660e3e203ca3e">接口公共报文说明
+<a id=接口公共报文说明> </a></a></li><li><a href="#u63a5u53e3u53d8u52a8u8bb0u5f550a3ca20id3du63a5u53e3u53d8u52a8u8bb0u5f553e203ca3e">接口变动记录
+<a id=接口变动记录> </a></a></li></ul></li><li><a href="#websocketu6d88u606fu5b9au4e49">WebSocket消息定义</a><ul><li><a href="#websocketu804au5929u63a5u53e30a3ca20id3dwebsocketu804au5929u63a5u53e33e203ca3e">WebSocket聊天接口
+<a id=WebSocket聊天接口> </a></a></li><li><a href="#u53d1u9001u7533u8bf7u597du53cbu901au77e5u6d88u606f0a3ca20id3du53d1u9001u7533u8bf7u597du53cbu901au77e5u6d88u606f3e203ca3e">发送申请好友通知消息
+<a id=发送申请好友通知消息> </a></a></li></ul></li><li><a href="#u4e1au52a1u63a5u53e3">业务接口</a><ul><li><a href="#u4feeu6539u4e2au4ebau4fe1u606f0a3ca20id3du4feeu6539u4e2au4ebau4fe1u606f3e203ca3e">修改个人信息
+<a id=修改个人信息> </a></a></li><li><a href="#u4feeu6539u597du53cbu4fe1u606f0a3ca20id3du4feeu6539u597du53cbu4fe1u606f3e203ca3e">修改好友信息
+<a id=修改好友信息> </a></a></li><li><a href="#u521bu5efau7fa4u804a0a3ca20id3du521bu5efau7fa4u804a3e203ca3e">创建群聊
+<a id=创建群聊> </a></a></li><li><a href="#u5220u9664u597du53cb0a3ca20id3du5220u9664u597du53cb3e203ca3e">删除好友
+<a id=删除好友> </a></a></li><li><a href="#u5237u65b0u7528u6237token0a3ca20id3du5237u65b0u7528u6237token3e203ca3e">刷新用户Token
+<a id=刷新用户Token> </a></a></li><li><a href="#u52a0u5165u7fa4u804au62c9u4ebau5165u7fa40a3ca20id3du52a0u5165u7fa4u804au62c9u4ebau5165u7fa43e203ca3e">加入群聊/拉人入群
+<a id=加入群聊/拉人入群> </a></a></li><li><a href="#u53d1u9001u77edu4fe1u9a8cu8bc1u78010a3ca20id3du53d1u9001u77edu4fe1u9a8cu8bc1u78013e203ca3e">发送短信验证码
+<a id=发送短信验证码> </a></a></li><li><a href="#u641cu7d22u7528u62370a3ca20id3du641cu7d22u7528u62373e203ca3e">搜索用户
+<a id=搜索用户> </a></a></li><li><a href="#u6587u4ef6u4e0au4f20u63a5u53e30a3ca20id3du6587u4ef6u4e0au4f20u63a5u53e33e203ca3e">文件上传接口
+<a id=文件上传接口> </a></a></li><li><a href="#u6587u4ef6u4e0bu8f7du63a5u53e30a3ca20id3du6587u4ef6u4e0bu8f7du63a5u53e33e203ca3e">文件下载接口
+<a id=文件下载接口> </a></a></li><li><a href="#u66f4u65b0u7528u6237u7684aeskeyu5bc6u94a50a3ca20id3du66f4u65b0u7528u6237u7684aeskeyu5bc6u94a53e203ca3e">更新用户的AesKey密钥
+<a id=更新用户的AesKey密钥> </a></a></li><li><a href="#u67e5u8be2u7528u6237u4e2au4ebau4fe1u606f0a3ca20id3du67e5u8be2u7528u6237u4e2au4ebau4fe1u606f3e203ca3e">查询用户个人信息
+<a id=查询用户个人信息> </a></a></li><li><a href="#u7528u6237u6ce8u518c0a3ca20id3du7528u6237u6ce8u518c3e203ca3e">用户注册
+<a id=用户注册> </a></a></li><li><a href="#u7528u6237u767bu51fa0a3ca20id3du7528u6237u767bu51fa3e203ca3e">用户登出
+<a id=用户登出> </a></a></li><li><a href="#u7528u6237u767bu5f550a3ca20id3du7528u6237u767bu5f553e203ca3e">用户登录
+<a id=用户登录> </a></a></li><li><a href="#u7533u8bf7u52a0u597du53cb0a3ca20id3du7533u8bf7u52a0u597du53cb3e203ca3e">申请加好友
+<a id=申请加好友> </a></a></li><li><a href="#u7533u8bf7u52a0u597du53cbu7684u5904u74060a3ca20id3du7533u8bf7u52a0u597du53cbu7684u5904u74063e203ca3e">申请加好友的处理
+<a id=申请加好友的处理> </a></a></li><li><a href="#u83b7u53d6u597du53cbu6216u964cu751fu4ebau7684u4fe1u606f0a3ca20id3du83b7u53d6u597du53cbu6216u964cu751fu4ebau7684u4fe1u606f3e203ca3e">获取好友或陌生人的信息
+<a id=获取好友或陌生人的信息> </a></a></li><li><a href="#u83b7u53d6u6211u7684u597du53cb0a3ca20id3du83b7u53d6u6211u7684u597du53cb3e203ca3e">获取我的好友
+<a id=获取我的好友> </a></a></li><li><a href="#u83b7u53d6u6211u7684u6240u6709u7fa4u4fe1u606f0a3ca20id3du83b7u53d6u6211u7684u6240u6709u7fa4u4fe1u606f3e203ca3e">获取我的所有群信息
+<a id=获取我的所有群信息> </a></a></li><li><a href="#u83b7u53d6u7533u8bf7u52a0u597du53cbu7684u4fe1u606f0a3ca20id3du83b7u53d6u7533u8bf7u52a0u597du53cbu7684u4fe1u606f3e203ca3e">获取申请加好友的信息
+<a id=获取申请加好友的信息> </a></a></li><li><a href="#u83b7u53d6u7fa4u8be6u7ec6u4fe1u606f0a3ca20id3du83b7u53d6u7fa4u8be6u7ec6u4fe1u606f3e203ca3e">获取群详细信息
+<a id=获取群详细信息> </a></a></li><li><a href="#u89e3u6563u7fa40a3ca20id3du89e3u6563u7fa43e203ca3e">解散群
+<a id=解散群> </a></a></li><li><a href="#u9000u7fa4u79fbu51fau7fa4u804a0a3ca20id3du9000u7fa4u79fbu51fau7fa4u804a3e203ca3e">退群/移出群聊
+<a id=退群/移出群聊> </a></a></li><li><a href="#u9a8cu8bc1u624bu673au53f7u662fu5426u53efu75280a3ca20id3du9a8cu8bc1u624bu673au53f7u662fu5426u53efu75283e203ca3e">验证手机号是否可用
+<a id=验证手机号是否可用> </a></a></li></ul></li></ul></div>
+          <div id="right" class="content-right">
+           <h1 class="curproject-name"> 密信聊天 </h1> 
+ 安全聊天
+<h1 id="u63a5u53e3u89c4u8303">接口规范</h1>
+<p></p>
+<h2 id="modeu7801u5173u7cfbu8bf4u660e0a3ca20id3dmodeu7801u5173u7cfbu8bf4u660e3e203ca3e">MODE码关系说明
+<a id=MODE码关系说明> </a></h2>
+<p></p>
+<h3 id="">基本信息</h3>
+<p><strong>Path：</strong> /mode</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<table>
+<thead>
+<tr>
+<th>mode</th>
+<th>说明</th>
+<th>detailType</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>心跳</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>单人聊天</td>
+<td>10-撤回消息</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>群聊</td>
+<td>10-撤回消息</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>广播</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>加好友通知</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>好友处理结果</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>创建群通知</td>
+<td>1-创建群<br data-tomark-pass="">2-加入群</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>退群通知</td>
+<td>3-解散群<br data-tomark-pass="">4-退群<br data-tomark-pass="">5-踢出群</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>呼叫</td>
+<td>12-接听<br data-tomark-pass="">13-挂断<br data-tomark-pass="">14-切换时间<br data-tomark-pass="">15-呼叫<br data-tomark-pass="">16-结束加密通话<br data-tomark-pass="">17-取消加密通话</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>远程消息处理</td>
+<td>10-远程删除，即撤回</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="-2">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/x-www-form-urlencoded</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="-3">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u516cu5171u54cdu5e94u78010a3ca20id3du516cu5171u54cdu5e94u78013e203ca3e">公共响应码
+<a id=公共响应码> </a></h2>
+<p></p>
+<h3 id="-4">基本信息</h3>
+<p><strong>Path：</strong> /code</p>
+<p><strong>Method：</strong> GET</p>
+<p><strong>接口描述：</strong></p>
+<h6>200 - 成功</h6>
+<h6>3000 - 业务失败</h6>
+<h6>5000 - 服务内部异常</h6>
+<h6>5001 - 加解密异常</h6>
+<h6>5002 - 接口输入参数不正确</h6>
+<h6>5003 - 用户未登录</h6>
+<h6>5004 - Token无效</h6>
+<h3 id="-5">请求参数</h3>
+<h3 id="-6">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u624bu673au77edu4fe1u6ce8u518cu6d41u7a0b0a3ca20id3du624bu673au77edu4fe1u6ce8u518cu6d41u7a0b3e203ca3e">手机短信注册流程
+<a id=手机短信注册流程> </a></h2>
+<p></p>
+<h3 id="-7">基本信息</h3>
+<p><strong>Path：</strong> /regFlow</p>
+<p><strong>Method：</strong> GET</p>
+<p><strong>接口描述：</strong></p>
+<h5>1、发送短信验证码</h5>
+<p>调用接口 ：<span class="colour" style="color:rgba(13, 27, 62, 0.65)">sendSmsCode</span><br>
+<span class="colour" style="color:rgba(13, 27, 62, 0.65)"><img src="data:image/png;base64,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" alt="微信截图_20210120173659.png"></span></p>
+<h5>2、获取短信验证码后，点“下一步”验证手机号是否可用，验证通过后进入注册页</h5>
+<p>调用接口：verifyMobile<br>
+&nbsp;&nbsp;<img src="data:image/png;base64,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" alt="微信截图_20210120174238.png"></p>
+<h5>3、点击“注册”按钮，调用接口“<span class="colour" style="color:rgba(13, 27, 62, 0.65)">userRegister</span>”完成注册。</h5>
+<h3 id="-8">请求参数</h3>
+<h3 id="-9">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u63a5u53e3u516cu5171u62a5u6587u8bf4u660e0a3ca20id3du63a5u53e3u516cu5171u62a5u6587u8bf4u660e3e203ca3e">接口公共报文说明
+<a id=接口公共报文说明> </a></h2>
+<p></p>
+<h3 id="-10">基本信息</h3>
+<p><strong>Path：</strong> /rule</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>1、接口统一请求url</h5>
+<p>开发环境：</p>
+<pre><code>http接口: http://172.18.20.211:5001/chat/service/v1
+websocket接口：ws://172.18.20.211:5002/chat/用户token
+文件上传接口：http://172.18.20.211:5001/chat/file/upload
+</code></pre>
+<p>外网测试环境：</p>
+<pre><code>http接口: http://119.45.139.102:5001/chat/service/v1
+websocket接口：ws://119.45.139.102:5002/chat/用户token
+文件上传接口：http://119.45.139.102:5001/chat/file/upload
+</code></pre>
+<h5>2、请求类型</h5>
+<p>请求方法：POST<br>
+报文形式：application/json</p>
+<h5>3、请求报文示例：（登录接口为例）</h5>
+<p><span class="colour" style="color:rgb(74, 85, 96)">{</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"action"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"userLogin"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"token"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"登录后的token，未登录则为空"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp; &nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"encodeType"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"加密方式 0-不加密，1-RSA，2-HMAC，3-AES"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+&nbsp; &nbsp;<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"sign"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"签名值"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"data"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"mobile"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"手机号"</strong></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"password"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"登录密码"</strong></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<span class="colour" style="color:rgb(74, 85, 96)">}</span></p>
+<h5>4、报文结构说明</h5>
+<p>报文分为报文头和报文体，其中报文头固定3个字段：<br>
+<span class="colour" style="color:rgb(146, 39, 143)"><strong>"action"</strong></span>，<span class="colour" style="color:rgb(146, 39, 143)"><strong>"token"</strong></span><span class="colour" style="color:rgb(146, 39, 143)">，<strong>"data"</strong></span><br>
+“data”中的内容为报文体，里面的字段见各接口字段的详细定义</p>
+<h5>5、响应报文示例：（登录接口为例）</h5>
+<p><span class="colour" style="color:rgb(74, 85, 96)">{</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"code"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"响应码，200-正常"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"message"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"响应信息"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp; &nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"decodeType"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"加密方式 0-不加密，1-RSA，2-HMAC验签，3-AES"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"sign"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"签名值"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"data"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"nickName"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"昵称"</strong></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"token"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"token值"</strong></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<span class="colour" style="color:rgb(74, 85, 96)">}</span></p>
+<h3 id="-11">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h3 id="-12">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u63a5u53e3u53d8u52a8u8bb0u5f550a3ca20id3du63a5u53e3u53d8u52a8u8bb0u5f553e203ca3e">接口变动记录
+<a id=接口变动记录> </a></h2>
+<p></p>
+<h3 id="-13">基本信息</h3>
+<p><strong>Path：</strong> /log</p>
+<p><strong>Method：</strong> GET</p>
+<p><strong>接口描述：</strong></p>
+<h5>2021-01-11</h5>
+<h6>1、ChatMessage数据结构新增字段【at】，即消息存活时间，默认单位是秒；例如&nbsp; at:10，表示消息存活10秒</h6>
+<p><br data-tomark-pass=""><br>
+<br data-tomark-pass=""></p>
+<h5>2021-01-09</h5>
+<h6>1、新增接口 getGroupProfile【获取群详细信息】</h6>
+<h6>2、修改了接口 getMyGroup的返回参数，请见具体接口详情【获取我的所有群信息】</h6>
+<h6>字段groupName =&gt; name，新增字段 ownerId群主用户ID，删除了群成员信息集合字段 members，可以从【获取群详细信息】中查询所有群成员信息</h6>
+<p><br data-tomark-pass=""><br>
+<br data-tomark-pass=""></p>
+<h5></h5>
+<p><br data-tomark-pass=""><br>
+<br data-tomark-pass=""></p>
+<h3 id="-14">请求参数</h3>
+<h3 id="-15">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h1 id="websocketu6d88u606fu5b9au4e49">WebSocket消息定义</h1>
+<p></p>
+<h2 id="websocketu804au5929u63a5u53e30a3ca20id3dwebsocketu804au5929u63a5u53e33e203ca3e">WebSocket聊天接口
+<a id=WebSocket聊天接口> </a></h2>
+<p></p>
+<h3 id="-16">基本信息</h3>
+<p><strong>Path：</strong> /message</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>websocket服务地址</h5>
+<p>ws://ip:9001/chat</p>
+<h5></h5>
+<h5>Mode消息场景</h5>
+<p>0-心跳 1-单人聊天 2-群聊 3-广播 4-消息通知</p>
+<h3 id="-17">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mode</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">消息场景: 0-心跳 1-单人聊天 2-群聊 3-广播 4-加好友通知 5-加友处理结果 6-创建群通知 7-退群通知</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> rt</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">发送消息的时间戳</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> counter</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">计数器</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> chatMessage</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-3-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> type</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">消息类型：10-文本，20-图片，30-语音，40-视频 50-定位 60-文件</span></td><td key=5></td></tr><tr key=0-3-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mid</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">消息ID</span></td><td key=5></td></tr><tr key=0-3-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> sid</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">发送信息用户</span></td><td key=5></td></tr><tr key=0-3-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> rid</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">接收信息的用户</span></td><td key=5></td></tr><tr key=0-3-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> read</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">0-未读，1-已读</span></td><td key=5></td></tr><tr key=0-3-5><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> at</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">消息存活时间：单位秒</span></td><td key=5></td></tr><tr key=0-3-6><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> content</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">消息类型</span></td><td key=5></td></tr><tr key=0-3-6-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> text</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文本信息</span></td><td key=5></td></tr><tr key=0-3-6-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> image</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">图片信息</span></td><td key=5></td></tr><tr key=0-3-6-1-0><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> url</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件URL</span></td><td key=5></td></tr><tr key=0-3-6-1-1><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> scaleUrl</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">缩略图URL</span></td><td key=5></td></tr><tr key=0-3-6-1-2><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> oriName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">原始文件名</span></td><td key=5></td></tr><tr key=0-3-6-1-3><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> width</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">宽</span></td><td key=5></td></tr><tr key=0-3-6-1-4><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> height</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">高</span></td><td key=5></td></tr><tr key=0-3-6-1-5><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> size</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件大小</span></td><td key=5></td></tr><tr key=0-3-6-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> audio</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">音频信息</span></td><td key=5></td></tr><tr key=0-3-6-2-0><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> url</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件URL</span></td><td key=5></td></tr><tr key=0-3-6-2-1><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> scaleUrl</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">缩略图URL</span></td><td key=5></td></tr><tr key=0-3-6-2-2><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> oriName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">原始文件名</span></td><td key=5></td></tr><tr key=0-3-6-2-3><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> duration</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">时长</span></td><td key=5></td></tr><tr key=0-3-6-2-4><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> size</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件大小</span></td><td key=5></td></tr><tr key=0-3-6-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> video</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">视频信息</span></td><td key=5></td></tr><tr key=0-3-6-3-0><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> url</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件URL</span></td><td key=5></td></tr><tr key=0-3-6-3-1><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> scaleUrl</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">缩略图URL</span></td><td key=5></td></tr><tr key=0-3-6-3-2><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> oriName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">原始文件名</span></td><td key=5></td></tr><tr key=0-3-6-3-3><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> duration</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">时长</span></td><td key=5></td></tr><tr key=0-3-6-3-4><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> size</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件大小</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-18">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u53d1u9001u7533u8bf7u597du53cbu901au77e5u6d88u606f0a3ca20id3du53d1u9001u7533u8bf7u597du53cbu901au77e5u6d88u606f3e203ca3e">发送申请好友通知消息
+<a id=发送申请好友通知消息> </a></h2>
+<p></p>
+<h3 id="-19">基本信息</h3>
+<p><strong>Path：</strong> /notify</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<p>申请好友的通知消息</p>
+<pre><code>{
+'mode': 4,
+'rt': '当前时间戳',
+'chatMessage': {
+    'mid': '消息ID同，必须',
+    'sid': '发送者ID，可为空',
+    'rid': '接收者ID，必须',
+    'message': '申请留言，必须',
+&nbsp;&nbsp;&nbsp;&nbsp;'status': '此参数为消息发送状态反溃，仅发送方能收到，1-发送成功 500-发送失败'
+}
+</code></pre>
+<p>好友通过或拒绝通知</p>
+<pre><code>{
+'mode': 5,
+'rt': '当前时间戳',
+'chatMessage': {
+    'mid': '消息ID同，必须',
+    'sid': '发送者ID，可为空',
+    'rid': '接收者ID，必须',
+    'message': '通知内容，必须',
+&nbsp;&nbsp;&nbsp;&nbsp;'applyResult': 1-同意，2-拒绝,
+&nbsp;&nbsp;&nbsp;&nbsp;'status': '此参数为消息发送状态反溃，仅发送方能收到，1-发送成功 500-发送失败'
+}
+</code></pre>
+<h3 id="-20">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/x-www-form-urlencoded</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="-21">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h1 id="u4e1au52a1u63a5u53e3">业务接口</h1>
+<p></p>
+<h2 id="u4feeu6539u4e2au4ebau4fe1u606f0a3ca20id3du4feeu6539u4e2au4ebau4fe1u606f3e203ca3e">修改个人信息
+<a id=修改个人信息> </a></h2>
+<p></p>
+<h3 id="-22">基本信息</h3>
+<p><strong>Path：</strong> /modifyProfile</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>modifyProfile</p>
+<h3 id="-23">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> nickName</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> avatar</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像URL</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> country</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> gender</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">性别：M-男 W-女</span></td><td key=5></td></tr><tr key=0-4><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> signature</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-24">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">地区</span></td><td key=5></td></tr><tr key=0-2-5><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u4feeu6539u597du53cbu4fe1u606f0a3ca20id3du4feeu6539u597du53cbu4fe1u606f3e203ca3e">修改好友信息
+<a id=修改好友信息> </a></h2>
+<p></p>
+<h3 id="-25">基本信息</h3>
+<p><strong>Path：</strong> /modifyFriend</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>modifyFriend</p>
+<h3 id="-26">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> friendId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> alias</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">备注名</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> tag</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">标签</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> note</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">其它备注</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-27">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> alias</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">别名</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> tag</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">标签</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> note</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">备注</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> user</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-3-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-3-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-3-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-2-3-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-3-4><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家</span></td><td key=5></td></tr><tr key=0-2-3-5><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u521bu5efau7fa4u804a0a3ca20id3du521bu5efau7fa4u804a3e203ca3e">创建群聊
+<a id=创建群聊> </a></h2>
+<p></p>
+<h3 id="-28">基本信息</h3>
+<p><strong>Path：</strong> /createGroup</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p><span class="colour" style="color:rgba(13, 27, 62, 0.65)">createGroup</span></p>
+<h3 id="-29">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> members</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">成员用户的userId，多个用户使用“,”隔开</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-30">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> ownerId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群主ID</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> name</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群名称</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群头像</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> total</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群人数</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u5220u9664u597du53cb0a3ca20id3du5220u9664u597du53cb3e203ca3e">删除好友
+<a id=删除好友> </a></h2>
+<p></p>
+<h3 id="-31">基本信息</h3>
+<p><strong>Path：</strong> /removeFriend</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<p>接口名称：<br>
+removeFriend</p>
+<h3 id="-32">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> friendId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的UserId</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-33">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u5237u65b0u7528u6237token0a3ca20id3du5237u65b0u7528u6237token3e203ca3e">刷新用户Token
+<a id=刷新用户Token> </a></h2>
+<p></p>
+<h3 id="-34">基本信息</h3>
+<p><strong>Path：</strong> /refreshToken</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>refreshToken</p>
+<p>说明：<br>
+返回新的token，用于延长用户的登录有效期。</p>
+<h3 id="-35">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h3 id="-36">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> token</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">新的token</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-4><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-5><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-6><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> gender</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">性别</span></td><td key=5></td></tr><tr key=0-7><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr><tr key=0-8><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> publicKey</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">公钥</span></td><td key=5></td></tr><tr key=0-9><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> registerTime</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">注册时间戳</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u52a0u5165u7fa4u804au62c9u4ebau5165u7fa40a3ca20id3du52a0u5165u7fa4u804au62c9u4ebau5165u7fa43e203ca3e">加入群聊/拉人入群
+<a id=加入群聊/拉人入群> </a></h2>
+<p></p>
+<h3 id="-37">基本信息</h3>
+<p><strong>Path：</strong> /joinGroup</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>joinGroup</p>
+<h3 id="-38">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> members</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID数组，多个用户使用“,”隔开</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-39">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> ownerId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群主ID</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> name</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群名称</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> total</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群成员数量</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u53d1u9001u77edu4fe1u9a8cu8bc1u78010a3ca20id3du53d1u9001u77edu4fe1u9a8cu8bc1u78013e203ca3e">发送短信验证码
+<a id=发送短信验证码> </a></h2>
+<p></p>
+<h3 id="-40">基本信息</h3>
+<p><strong>Path：</strong> /sendSmsCode</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>sendSmsCode</p>
+<h3 id="-41">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-42">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码，200-成功</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u641cu7d22u7528u62370a3ca20id3du641cu7d22u7528u62373e203ca3e">搜索用户
+<a id=搜索用户> </a></h2>
+<p></p>
+<h3 id="-43">基本信息</h3>
+<p><strong>Path：</strong> /searchUser</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>searchUser</p>
+<h3 id="-44">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号，通过手机号搜索</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-45">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">异常消息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> list</span></td><td key=1><span>object []</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户数组</span></td><td key=5><p key=3><span style="font-weight: '700'">item 类型: </span><span>object</span></p></td></tr><tr key=0-2-0-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-0-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-0-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">图像</span></td><td key=5></td></tr><tr key=0-2-0-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-2-0-4><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u6587u4ef6u4e0au4f20u63a5u53e30a3ca20id3du6587u4ef6u4e0au4f20u63a5u53e33e203ca3e">文件上传接口
+<a id=文件上传接口> </a></h2>
+<p></p>
+<h3 id="-46">基本信息</h3>
+<p><strong>Path：</strong> /upload</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<h6>upload</h6>
+<h5>注意</h5>
+<h6>文件上传接口与http接口不同：</h6>
+<h6>1、接口url路径不同：<a href="http://host:post/chat/file/upload">http://host:port/chat/file/upload</a></h6>
+<h6>2、由于上传文件必须采用form-data的方式，因此Content-Type的类型为 “<span class="colour" style="color:var(--accent-success)">application/x-www-form-urlencoded”，而不能是“application/json”。</span></h6>
+<h3 id="-47">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>multipart/form-data</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数类型</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>text</td>
+<td>是</td>
+<td></td>
+<td>用户的token</td>
+</tr>
+<tr>
+<td>file</td>
+<td>file</td>
+<td>是</td>
+<td></td>
+<td>上传的文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-48">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应消息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> name</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">旧的文件名称</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> fileId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">文件ID，用于下载文件流使用，见文件下载接口口</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> url</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">原始文件的url</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> type</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">preview直接预览，download下载打开（需要调用文件下载接口下载文件）</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> scaleUrl</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">缩略图，当图片超过1M时进行压缩</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u6587u4ef6u4e0bu8f7du63a5u53e30a3ca20id3du6587u4ef6u4e0bu8f7du63a5u53e33e203ca3e">文件下载接口
+<a id=文件下载接口> </a></h2>
+<p></p>
+<h3 id="-49">基本信息</h3>
+<p><strong>Path：</strong> /download</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>文件下载</h5>
+<h6>接口url：http//host:port/chat/file/download</h6>
+<h5>注意</h5>
+<h6><span class="colour" style="color:rgb(51, 51, 51)">1、文件下载采用form-data的方式，请求方式post，因此Content-Type的类型为 “</span><span class="colour" style="color:var(--accent-success)">application/x-www-form-urlencoded”，而不能是“application/json”。</span></h6>
+<p><span class="colour" style="color:var(--accent-success)">2、接口返回的是文件流，非文件的URL，必须使用读流的方式获取完整的文件。</span></p>
+<h3 id="-50">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/x-www-form-urlencoded</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数类型</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>text</td>
+<td>是</td>
+<td></td>
+<td>用户token</td>
+</tr>
+<tr>
+<td>fileId</td>
+<td>text</td>
+<td>是</td>
+<td></td>
+<td>上传时返回的文件ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-51">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h2 id="u66f4u65b0u7528u6237u7684aeskeyu5bc6u94a50a3ca20id3du66f4u65b0u7528u6237u7684aeskeyu5bc6u94a53e203ca3e">更新用户的AesKey密钥
+<a id=更新用户的AesKey密钥> </a></h2>
+<p></p>
+<h3 id="-52">基本信息</h3>
+<p><strong>Path：</strong> /updateKey</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>updateKey</p>
+<h3 id="-53">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> encryptData</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">使用公钥加密的reskey</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-54">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u67e5u8be2u7528u6237u4e2au4ebau4fe1u606f0a3ca20id3du67e5u8be2u7528u6237u4e2au4ebau4fe1u606f3e203ca3e">查询用户个人信息
+<a id=查询用户个人信息> </a></h2>
+<p></p>
+<h3 id="-55">基本信息</h3>
+<p><strong>Path：</strong> /getProfile</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>getProfile</p>
+<h5>注意：此接口用于查询个人信息，查询好友信息请参见接口：getFriendProfile</h5>
+<h3 id="-56">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h3 id="-57">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">所在国家</span></td><td key=5></td></tr><tr key=0-2-5><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> gender</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">性别：M-男， W-女</span></td><td key=5></td></tr><tr key=0-2-6><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr><tr key=0-2-7><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> registerTime</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">注册时间戳</span></td><td key=5></td></tr><tr key=0-2-8><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> publicKey</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">公钥</span></td><td key=5></td></tr><tr key=0-2-9><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> relationship</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">1-自己  2-好友，3-非好友</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u7528u6237u6ce8u518c0a3ca20id3du7528u6237u6ce8u518c3e203ca3e">用户注册
+<a id=用户注册> </a></h2>
+<p></p>
+<h3 id="-58">基本信息</h3>
+<p><strong>Path：</strong> /userRegister</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p><span class="colour" style="color:rgba(13, 27, 62, 0.65)">userRegister</span></p>
+<h3 id="-59">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> authCode</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">认证码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> password</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">密码</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-60">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码：200成功，其它码异常</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">异常消息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u7528u6237u767bu51fa0a3ca20id3du7528u6237u767bu51fa3e203ca3e">用户登出
+<a id=用户登出> </a></h2>
+<p></p>
+<h3 id="-61">基本信息</h3>
+<p><strong>Path：</strong> /userLogout</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>userLogout</p>
+<h3 id="-62">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h3 id="-63">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u7528u6237u767bu5f550a3ca20id3du7528u6237u767bu5f553e203ca3e">用户登录
+<a id=用户登录> </a></h2>
+<p></p>
+<h3 id="-64">基本信息</h3>
+<p><strong>Path：</strong> /userLogin</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>请求报文示例：</h5>
+<p><span class="colour" style="color:rgb(74, 85, 96)">{</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"action"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"userLogin"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"token"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span><span class="colour" style="color:rgb(58, 181, 74)"><strong>"token为空即可"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">,</span><br>
+<span class="colour" style="color:rgb(74, 85, 96)">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="colour" style="color:rgb(146, 39, 143)"><strong>"data"</strong></span><span class="colour" style="color:rgb(74, 85, 96)">:</span>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"mobile"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"手机号"</strong></span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="colour" style="color:rgb(146, 39, 143)"><strong>"password"</strong></span>:<span class="colour" style="color:rgb(58, 181, 74)"><strong>"登录密码"</strong></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<span class="colour" style="color:rgb(74, 85, 96)">}</span></p>
+<h3 id="-65">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> password</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">密码，至少6位</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> type</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">登录方式：1-短信  2-密码</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> smsCode</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">短信码：当以短信方式登录时必需</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-66">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">状态码：200为正常，其它码为异常</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">异常消息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">当code为200时返回</span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> token</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">认证token</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> publicKey</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">公钥</span></td><td key=5></td></tr><tr key=0-2-5><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-6><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-2-7><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> gender</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">性别，M-男 W-女</span></td><td key=5></td></tr><tr key=0-2-8><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">个性签名</span></td><td key=5></td></tr><tr key=0-2-9><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> registerTime</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">注册时间戳</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u7533u8bf7u52a0u597du53cb0a3ca20id3du7533u8bf7u52a0u597du53cb3e203ca3e">申请加好友
+<a id=申请加好友> </a></h2>
+<p></p>
+<h3 id="-67">基本信息</h3>
+<p><strong>Path：</strong> /applyAddFriend</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>applyAddFriend</p>
+<h3 id="-68">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> targetUserId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">目标用户ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> leaveMsg</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">留言</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-69">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">错误信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u7533u8bf7u52a0u597du53cbu7684u5904u74060a3ca20id3du7533u8bf7u52a0u597du53cbu7684u5904u74063e203ca3e">申请加好友的处理
+<a id=申请加好友的处理> </a></h2>
+<p></p>
+<h3 id="-70">基本信息</h3>
+<p><strong>Path：</strong> /applyFriendHandler</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>applyFriendHandler</p>
+<h3 id="-71">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> applyId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">申请人ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> status</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">是否通过：1-接受 2-拒绝 3-忽略</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-72">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">错误信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">当好友选择接受时返回申请人的基本信息</span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的userId</span></td><td key=5></td></tr><tr key=0-2-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的nickName</span></td><td key=5></td></tr><tr key=0-2-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的头像</span></td><td key=5></td></tr><tr key=0-2-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的国家区</span></td><td key=5></td></tr><tr key=0-2-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友的手机</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u83b7u53d6u597du53cbu6216u964cu751fu4ebau7684u4fe1u606f0a3ca20id3du83b7u53d6u597du53cbu6216u964cu751fu4ebau7684u4fe1u606f3e203ca3e">获取好友或陌生人的信息
+<a id=获取好友或陌生人的信息> </a></h2>
+<p></p>
+<h3 id="-73">基本信息</h3>
+<p><strong>Path：</strong> /getFriendProfile</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>getFriendProfile</p>
+<h5>注意</h5>
+<p>只有查询的用户与本人是好友时，才返回以下字段：<br>
+mobile - 手机号<br>
+alias - 好友备注名<br>
+tag - 好友标签<br>
+note - 好友备注</p>
+<h3 id="-74">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> friendId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友或陌生人的userId</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-75">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> alias</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友别名</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> tag</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友标签</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> note</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友备注</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> user</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-3-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-3-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-3-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">电话</span></td><td key=5></td></tr><tr key=0-3-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-3-4><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家</span></td><td key=5></td></tr><tr key=0-3-5><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> signature</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">签名</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u83b7u53d6u6211u7684u597du53cb0a3ca20id3du83b7u53d6u6211u7684u597du53cb3e203ca3e">获取我的好友
+<a id=获取我的好友> </a></h2>
+<p></p>
+<h3 id="-76">基本信息</h3>
+<p><strong>Path：</strong> /getMyFriends</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>getMyFriends</p>
+<h3 id="-77">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> searchKey</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">搜索我的好友关键字，可为空</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-78">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">异常消息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">业务数据</span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> list</span></td><td key=1><span>object []</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">好友数组</span></td><td key=5><p key=3><span style="font-weight: '700'">item 类型: </span><span>object</span></p></td></tr><tr key=0-2-0-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> alias</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">备注昵称</span></td><td key=5></td></tr><tr key=0-2-0-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> tag</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">标签</span></td><td key=5></td></tr><tr key=0-2-0-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> note</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">其它备注</span></td><td key=5></td></tr><tr key=0-2-0-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> user</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0-3-0><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-0-3-1><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-0-3-2><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-2-0-3-3><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-0-3-4><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u83b7u53d6u6211u7684u6240u6709u7fa4u4fe1u606f0a3ca20id3du83b7u53d6u6211u7684u6240u6709u7fa4u4fe1u606f3e203ca3e">获取我的所有群信息
+<a id=获取我的所有群信息> </a></h2>
+<p></p>
+<h3 id="-79">基本信息</h3>
+<p><strong>Path：</strong> /getMyGroup</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p><span class="colour" style="color:rgba(13, 27, 62, 0.65)">getMyGroup</span></p>
+<h3 id="-80">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody">
+               </tbody>
+              </table>
+<h3 id="-81">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> list</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群信息</span></td><td key=5></td></tr><tr key=0-2-0-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-2-0-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> name</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群名称</span></td><td key=5></td></tr><tr key=0-2-0-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> topic</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群公告</span></td><td key=5></td></tr><tr key=0-2-0-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群头像</span></td><td key=5></td></tr><tr key=0-2-0-4><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> total</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群成员数</span></td><td key=5></td></tr><tr key=0-2-0-5><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> createTime</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群创建时间，为时间戳</span></td><td key=5></td></tr><tr key=0-2-0-6><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> ownerId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群主ID</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u83b7u53d6u7533u8bf7u52a0u597du53cbu7684u4fe1u606f0a3ca20id3du83b7u53d6u7533u8bf7u52a0u597du53cbu7684u4fe1u606f3e203ca3e">获取申请加好友的信息
+<a id=获取申请加好友的信息> </a></h2>
+<p></p>
+<h3 id="-82">基本信息</h3>
+<p><strong>Path：</strong> /getApplyFriend</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>getApplyFriend</p>
+<h3 id="-83">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> status</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">处理状态：0-未处理 1-通过 2-拒绝 3-忽略</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-84">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">错误消息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> list</span></td><td key=1><span>object []</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5><p key=3><span style="font-weight: '700'">item 类型: </span><span>object</span></p></td></tr><tr key=0-2-0-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> applyId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">申请ID</span></td><td key=5></td></tr><tr key=0-2-0-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> leaveMsg</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">留言信息</span></td><td key=5></td></tr><tr key=0-2-0-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> applyTime</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">申请时间戳</span></td><td key=5></td></tr><tr key=0-2-0-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> status</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">申请状态：0-未处理 1-通过 2-拒绝 3-忽略</span></td><td key=5></td></tr><tr key=0-2-0-4><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> user</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户信息</span></td><td key=5></td></tr><tr key=0-2-0-4-0><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-2-0-4-1><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-2-0-4-2><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-2-0-4-3><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-2-0-4-4><td key=0><span style="padding-left: 60px"><span style="color: #8c8a8a">├─</span> relationship</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">与好友关系 1-自己 2-好友 3-陌生人</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u83b7u53d6u7fa4u8be6u7ec6u4fe1u606f0a3ca20id3du83b7u53d6u7fa4u8be6u7ec6u4fe1u606f3e203ca3e">获取群详细信息
+<a id=获取群详细信息> </a></h2>
+<p></p>
+<h3 id="-85">基本信息</h3>
+<p><strong>Path：</strong> /getGroupProfile</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>getGroupProfile</p>
+<h3 id="-86">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> type</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">类型：1-基本信息 2-详细信息（群主及群成员信息）</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-87">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> name</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群名称</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> ownerId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群主ID</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-3><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群头像</span></td><td key=5></td></tr><tr key=0-4><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> topic</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群公告</span></td><td key=5></td></tr><tr key=0-5><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> total</span></td><td key=1><span>number</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群人数</span></td><td key=5></td></tr><tr key=0-6><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> owner</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">type=2时返回</span></td><td key=5></td></tr><tr key=0-6-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-6-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-6-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-6-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr><tr key=0-7><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> list</span></td><td key=1><span>object []</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群成员信息</span></td><td key=5><p key=3><span style="font-weight: '700'">item 类型: </span><span>object</span></p></td></tr><tr key=0-7-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> alias</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">备注昵称</span></td><td key=5></td></tr><tr key=0-7-1><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> tag</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">标签</span></td><td key=5></td></tr><tr key=0-7-2><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> note</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">其它备注</span></td><td key=5></td></tr><tr key=0-7-3><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> user</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-7-3-0><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> userId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">用户ID</span></td><td key=5></td></tr><tr key=0-7-3-1><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> nickName</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">昵称</span></td><td key=5></td></tr><tr key=0-7-3-2><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机</span></td><td key=5></td></tr><tr key=0-7-3-3><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> avatar</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">头像</span></td><td key=5></td></tr><tr key=0-7-3-4><td key=0><span style="padding-left: 40px"><span style="color: #8c8a8a">├─</span> country</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">国家地区</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u89e3u6563u7fa40a3ca20id3du89e3u6563u7fa43e203ca3e">解散群
+<a id=解散群> </a></h2>
+<p></p>
+<h3 id="-88">基本信息</h3>
+<p><strong>Path：</strong> /dismissGroup</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>dismissGroup</p>
+<h5>注意</h5>
+<p>只有群主才有权限解散群</p>
+<h3 id="-89">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-90">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u9000u7fa4u79fbu51fau7fa4u804a0a3ca20id3du9000u7fa4u79fbu51fau7fa4u804a3e203ca3e">退群/移出群聊
+<a id=退群/移出群聊> </a></h2>
+<p></p>
+<h3 id="-91">基本信息</h3>
+<p><strong>Path：</strong> /quitGroup</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称</h5>
+<p>quitGroup</p>
+<h3 id="-92">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> groupId</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">群ID</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> members</span></td><td key=1><span>string</span></td><td key=2>非必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">如果为空，则表示成员自己退出群</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-93">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h2 id="u9a8cu8bc1u624bu673au53f7u662fu5426u53efu75280a3ca20id3du9a8cu8bc1u624bu673au53f7u662fu5426u53efu75283e203ca3e">验证手机号是否可用
+<a id=验证手机号是否可用> </a></h2>
+<p></p>
+<h3 id="-94">基本信息</h3>
+<p><strong>Path：</strong> /verifyMobile</p>
+<p><strong>Method：</strong> POST</p>
+<p><strong>接口描述：</strong></p>
+<h5>接口名称：</h5>
+<p>verifyMobile</p>
+<h3 id="-95">请求参数</h3>
+<p><strong>Headers</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数值</th>
+<th>是否必须</th>
+<th>示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>是</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Body</strong></p>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> mobile</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">手机号</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> smsCode</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">短信码</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+<h3 id="-96">返回数据</h3>
+<table>
+  <thead class="ant-table-thead">
+    <tr>
+      <th key=name>名称</th><th key=type>类型</th><th key=required>是否必须</th><th key=default>默认值</th><th key=desc>备注</th><th key=sub>其他信息</th>
+    </tr>
+  </thead><tbody className="ant-table-tbody"><tr key=0-0><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> code</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应码</span></td><td key=5></td></tr><tr key=0-1><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> message</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">响应信息</span></td><td key=5></td></tr><tr key=0-2><td key=0><span style="padding-left: 0px"><span style="color: #8c8a8a"></span> data</span></td><td key=1><span>object</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap"></span></td><td key=5></td></tr><tr key=0-2-0><td key=0><span style="padding-left: 20px"><span style="color: #8c8a8a">├─</span> authCode</span></td><td key=1><span>string</span></td><td key=2>必须</td><td key=3></td><td key=4><span style="white-space: pre-wrap">认证码，验证无误后返回</span></td><td key=5></td></tr>
+               </tbody>
+              </table>
+
+            <footer class="m-footer">
+              <p>Build by <a href="https://ymfe.org/">YMFE</a>.</p>
+            </footer>
+          </div>
+        </div>
+      </body>
+      </html>
+      

@@ -1,0 +1,48 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+###
+
+POST http://localhost:5001/chat/service/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"
+
+< F:/165349qpg24xka0j08kwsy.jpg
+--WebAppBoundary--
+
+###
+
+###登录
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "getAppUpgrade",
+  "data": {
+    "version": "1.0",
+    "versionType": "beta"
+  }
+}
+
+###
+
+###生成Media token
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "getMediaToken",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDc4Mzg5MiIsImV4cCI6MTYxNzEyMDAwMCwiaWF0IjoxNjE0NTkxMDMwLCJ1c2VySWQiOiJVMjEwMTIwTjJXQ0swMDAxMDYiLCJqdGkiOiJVMjEwMTIwTjJXQ0swMDAxMDYifQ.-u42HHDH9zgb0SIEB3Kv4q4ZU5AarNQ-BIgtDTYlKvs",
+  "data": {
+  }
+}
+
+###

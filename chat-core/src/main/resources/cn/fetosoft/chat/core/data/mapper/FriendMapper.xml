@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.core.data.mapper.FriendMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.core.data.entity.Friend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="friend_id" jdbcType="VARCHAR" property="friendId" />
+    <result column="friend_name" jdbcType="VARCHAR" property="friendName" />
+    <result column="friend_mobile" jdbcType="VARCHAR" property="friendMobile" />
+    <result column="friend_avatar" jdbcType="VARCHAR" property="friendAvatar" />
+    <result column="friend_country" jdbcType="VARCHAR" property="friendCountry" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="black" jdbcType="CHAR" property="black" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, friend_id, friend_name, friend_mobile, friend_avatar, friend_country,
+    alias, tag, note, black, create_time
+  </sql>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="userId != null and userId!=''">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="friendId != null and friendId!=''">
+        and friend_id = #{friendId,jdbcType=VARCHAR}
+      </if>
+      <if test="searchKey != null and searchKey!=''">
+        and (friend_name like concat('%', #{searchKey,jdbcType=VARCHAR}, '%') or friend_mobile like concat('%', #{searchKey,jdbcType=VARCHAR}, '%'))
+      </if>
+      <if test="black != null and black!=''">
+        and black = #{black,jdbcType=CHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_friend
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.core.data.form.FriendForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_friend
+    <include refid="queryConditions" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.core.data.form.FriendForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from chat_friend
+    <include refid="queryConditions" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_friend
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.core.data.entity.Friend">
+    insert into chat_friend (id, user_id, friend_id,
+      friend_name, friend_mobile, friend_avatar,
+      friend_country, alias, tag,
+      note, black, create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{friendId,jdbcType=VARCHAR}, 
+      #{friendName,jdbcType=VARCHAR}, #{friendMobile,jdbcType=VARCHAR}, #{friendAvatar,jdbcType=VARCHAR},
+      #{friendCountry,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR},
+      #{note,jdbcType=VARCHAR},#{black,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.core.data.entity.Friend">
+    update chat_friend
+    <set>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="black != null">
+        black = #{black,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateFriendBySelf" parameterType="cn.fetosoft.chat.core.data.entity.Friend">
+    update chat_friend
+    <set>
+      <if test="friendName != null">
+        friend_name = #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendMobile != null">
+        friend_mobile = #{friendMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="friendAvatar != null">
+        friend_avatar = #{friendAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="friendCountry != null">
+        friend_country = #{friendCountry,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where friend_id = #{friendId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectListByFids" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_friend
+    where friend_id in
+    <foreach collection="list" item="friendId" index="index" open="(" separator="," close=")">
+      #{friendId,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+</mapper>

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: admin
+  profiles:
+    active: "@profileActive@"
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      enabled: true
+      max-request-size: 20MB
+
+server:
+  port: 8080
+
+mybatis:
+  type-aliases-package: cn.fetosoft.chat.core.data.entity
+  mapper-locations: cn/fetosoft/chat/core/data/mapper/*.xml,cn/fetosoft/chat/data/mapper/*/*.xml
+  config-location: classpath:mybatis-config.xml
+
+system:
+  chat-expired: 24 #消息过期时间，单位小时，即24小时后过期
+  hmac-key: SC5gvN3k!8BpgD7/!ztLW5SNabQxZWi6
+  aes-key: fWVV!bm!7n626FG5
+  jwt:
+    secret-key: nJi!eufTu0=4yECKVEfH7PDh!5pMTOpk
+    expire-days: 30

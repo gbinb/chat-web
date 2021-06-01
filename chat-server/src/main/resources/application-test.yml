@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:mysql://10.206.0.16:23306/hn_chat?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: hn-chat
+    password: 9*NqKu75oCBozzBM
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initialSize: 5
+      maxActive: 100
+      minIdle: 5
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 30
+      filters: stat
+
+redisson:
+  password: X*C*#VGw8AZqS*G0lhy8cDGQpKilh7Vw
+  mode: cluster  #cluster-集群模式 singleton-单机模式
+  scanInterval: 5000 #milliseconds
+  nodes:
+    - redis://10.206.0.16:38001
+    - redis://10.206.0.16:38002
+    - redis://10.206.0.16:38003
+    - redis://10.206.0.16:38004
+    - redis://10.206.0.16:38005
+    - redis://10.206.0.16:38006
+
+system:
+  default-avatar: http://119.45.139.102:9000/chat/single.png
+  default-group-avatar: http://119.45.139.102:9000/chat/group.png
+  file-domain: http://119.45.139.102:9000
+  save-file-path: /opt/chat/file
+  illegal-file: .exe.bat.sh.js
+  minio:
+    end-point: http://10.206.0.16:9000
+    access-key: admin
+    secret-key: adminchat
+    minio-bucket: chat
+
+  sms:
+    merchant: huanuo
+    key: 4
+    secret: C4A9914E99C1F38C17259149A7AE9EC3
+    account: huanuo
+    gateway-url: https://api.hvo.net.cn/smsJson.aspx
+    rate-limit: 10
+    template: 【中联华诺】您的短信验证码：%s，有效期为5分钟，请勿泄露给他人。如非本人操作，请忽略此短信。

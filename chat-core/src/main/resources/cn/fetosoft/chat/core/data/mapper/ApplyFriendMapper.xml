@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.core.data.mapper.ApplyFriendMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.core.data.entity.ApplyFriend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="apply_id" jdbcType="VARCHAR" property="applyId" />
+    <result column="apply_user_id" jdbcType="VARCHAR" property="applyUserId" />
+    <result column="target_user_id" jdbcType="VARCHAR" property="targetUserId" />
+    <result column="apply_nick_name" jdbcType="VARCHAR" property="applyNickName" />
+    <result column="apply_avatar" jdbcType="VARCHAR" property="applyAvatar" />
+    <result column="apply_country" jdbcType="VARCHAR" property="applyCountry" />
+    <result column="leave_msg" jdbcType="VARCHAR" property="leaveMsg" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, apply_id, apply_user_id, target_user_id,
+    apply_nick_name, apply_avatar, apply_country,
+    leave_msg, status, create_time, modify_time
+  </sql>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="applyId != null and applyId!=''">
+        and apply_id = #{applyId,jdbcType=VARCHAR}
+      </if>
+      <if test="applyUserId != null and applyUserId!=''">
+        and apply_user_id = #{applyUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="targetUserId != null and targetUserId!=''">
+        and target_user_id = #{targetUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status!=''">
+        and status = #{status,jdbcType=CHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_apply_friend
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByApplyId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_apply_friend
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.core.data.form.ApplyFriendForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_apply_friend
+    <include refid="queryConditions" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.core.data.form.ApplyFriendForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from chat_apply_friend
+    <include refid="queryConditions" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from chat_apply_friend
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.core.data.entity.ApplyFriend">
+    insert into chat_apply_friend (apply_id, apply_user_id, target_user_id,
+      apply_nick_name, apply_avatar, apply_country,
+      leave_msg, status, create_time, modify_time)
+    values (#{applyId,jdbcType=VARCHAR}, #{applyUserId,jdbcType=VARCHAR}, #{targetUserId,jdbcType=VARCHAR},
+      #{applyNickName,jdbcType=VARCHAR}, #{applyAvatar,jdbcType=VARCHAR}, #{applyCountry,jdbcType=VARCHAR},
+      #{leaveMsg,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.core.data.entity.ApplyFriend">
+    update chat_apply_friend
+    <set>
+      <if test="applyNickName != null">
+        apply_nick_name = #{applyNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAvatar != null">
+        apply_avatar = #{applyAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCountry != null">
+        apply_country = #{applyCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveMsg != null">
+        leave_msg = #{leaveMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,104 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+###搜索好友
+
+POST http://localhost:80/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "searchFriend",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMDY0MDAwMCwiaWF0IjoxNjA4MTE5ODk1LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.P21BjhymILX2VxQoRRui3KH5xUjOcDV-JgPx0SdPTKM",
+  "data": {
+    "mobile": "18699999999"
+  }
+}
+
+###
+
+###查询好友信息
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "action": "getMyFriends",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMTg0OTYwMCwiaWF0IjoxNjA5MzE1NzgwLCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.8kKOPRpjXrjx0ZVF0VDq4pxY8H-386YvuQa6O97msFs",
+  "data": {
+  }
+}
+
+###创建群
+
+###申请加好友
+
+POST http://localhost:80/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "applyAddFriend",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMDY0MDAwMCwiaWF0IjoxNjA4MTE5ODk1LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.P21BjhymILX2VxQoRRui3KH5xUjOcDV-JgPx0SdPTKM",
+  "data": {
+    "targetUserId": "U201216000002",
+    "leaveMsg": "华诺同事"
+  }
+}
+
+###
+
+###查询新好友
+
+POST http://localhost:80/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "getNewFriend",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODY5OTk5OTk5OSIsImV4cCI6MTYxMDgxMjgwMCwiaWF0IjoxNjA4MjgxODQ4LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAyIiwianRpIjoiVTIwMTIxNjAwMDAwMiJ9.ZxxqCP1jjrddW1CayjYxebqOf4Wub0xPUJPqvadVmNs",
+  "data": {
+  }
+}
+
+###
+
+###同意或拒绝加好友
+
+POST http://localhost:80/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "newFriendHandler",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODY5OTk5OTk5OSIsImV4cCI6MTYxMDgxMjgwMCwiaWF0IjoxNjA4MjgxODQ4LCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAyIiwianRpIjoiVTIwMTIxNjAwMDAwMiJ9.ZxxqCP1jjrddW1CayjYxebqOf4Wub0xPUJPqvadVmNs",
+  "data": {
+    "applyUserId": "U201216000001",
+    "isPass": true
+  }
+}
+
+###
+
+###修改信息好友
+
+POST http://localhost:5001/chat/service/v1
+Content-Type: application/json
+
+{
+  "type": 1,
+  "action": "modifyFriend",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjbGllbnQiLCJpc3MiOiJzZXJ2ZXIiLCJtb2JpbGUiOiIxODYwMDU2Nzg5OSIsImV4cCI6MTYxMTg0OTYwMCwiaWF0IjoxNjA5MzE1NzgwLCJ1c2VySWQiOiJVMjAxMjE2MDAwMDAxIiwianRpIjoiVTIwMTIxNjAwMDAwMSJ9.8kKOPRpjXrjx0ZVF0VDq4pxY8H-386YvuQa6O97msFs",
+  "data": {
+    "friendId": "U201228EO1GO000006",
+    "alias": "湖北老乡",
+    "tag": "西二旗"
+  }
+}
+
+###
+

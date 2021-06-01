@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fetosoft.chat.data.mapper.system.AdminMapper">
+  <resultMap id="BaseResultMap" type="cn.fetosoft.chat.data.entity.system.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="locked" jdbcType="CHAR" property="locked" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+  </resultMap>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="adminId != null and adminId!=''">
+        and admin_id = #{adminId,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null and username!=''">
+        and username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null and password!=''">
+        and password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name!=''">
+        and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+      </if>
+      <if test="mobile != null and mobile!=''">
+        and mobile = #{mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="roleId != null">
+        and role_id = #{roleId,jdbcType=INTEGER}
+      </if>
+      <if test="locked != null and locked!=''">
+        and locked = #{locked,jdbcType=CHAR}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="Base_Column_List">
+    id, admin_id, username, password, name, mobile, mail, role_id, locked, create_time, note, modify_time,
+    login_ip, login_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByAdminId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_admin
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectListByForm" parameterType="cn.fetosoft.chat.data.form.system.AdminForm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_admin
+    <include refid="queryConditions" />
+    <include refid="base.orderAndPage" />
+  </select>
+
+  <select id="selectCountByForm" parameterType="cn.fetosoft.chat.data.form.system.AdminForm" resultType="java.lang.Integer">
+    select count(id) as c
+    from sys_admin
+    <include refid="queryConditions" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="cn.fetosoft.chat.data.entity.system.Admin">
+    insert into sys_admin (admin_id, username, password,
+      name, mobile, mail, 
+      role_id, locked, create_time, 
+      note, modify_time, login_ip, 
+      login_time)
+    values (#{adminId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{roleId,jdbcType=INTEGER}, #{locked,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{note,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fetosoft.chat.data.entity.system.Admin">
+    update sys_admin
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateLoginByAdminId" parameterType="cn.fetosoft.chat.data.entity.system.Admin">
+    update sys_admin
+    set login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP}
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </update>
+</mapper>
